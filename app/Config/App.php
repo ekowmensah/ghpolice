@@ -34,10 +34,75 @@ class App
     {
         return self::config('app.debug', false);
     }
+
+    private static function normalizePath(?string $path): string
+    {
+        $path = str_replace('\\', '/', trim((string)$path));
+        if ($path === '' || $path === '/' || $path === '.') {
+            return '';
+        }
+
+        return '/' . trim($path, '/');
+    }
+
+    public static function basePath(): string
+    {
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+        if ($scriptName !== '') {
+            $scriptDir = dirname(str_replace('\\', '/', $scriptName));
+            $normalizedScriptDir = self::normalizePath($scriptDir);
+            if ($normalizedScriptDir !== '') {
+                return $normalizedScriptDir;
+            }
+        }
+
+        $configuredUrl = (string) self::config('app.url', '');
+        $configuredPath = parse_url($configuredUrl, PHP_URL_PATH);
+        return self::normalizePath($configuredPath);
+    }
+
+    private static function baseOrigin(): string
+    {
+        if (!empty($_SERVER['HTTP_HOST'])) {
+            $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+            $scheme = $isHttps ? 'https' : 'http';
+            return $scheme . '://' . $_SERVER['HTTP_HOST'];
+        }
+
+        $configuredUrl = (string) self::config('app.url', '');
+        $parts = parse_url($configuredUrl);
+        if (is_array($parts) && isset($parts['scheme'], $parts['host'])) {
+            $origin = $parts['scheme'] . '://' . $parts['host'];
+            if (isset($parts['port'])) {
+                $origin .= ':' . $parts['port'];
+            }
+            return $origin;
+        }
+
+        return '';
+    }
     
     public static function baseUrl(string $path = ''): string
     {
-        $url = rtrim(self::config('app.url'), '/');
-        return $path ? $url . '/' . ltrim($path, '/') : $url;
+        if ($path !== '' && preg_match('#^https?://#i', $path)) {
+            return $path;
+        }
+
+        $basePath = self::basePath();
+        $origin = self::baseOrigin();
+
+        $base = $origin !== ''
+            ? rtrim($origin . $basePath, '/')
+            : ($basePath !== '' ? $basePath : '');
+
+        if ($path === '') {
+            return $base !== '' ? $base : '/';
+        }
+
+        if ($path === '/') {
+            return ($base !== '' ? $base : '') . '/';
+        }
+
+        return ($base !== '' ? $base : '') . '/' . ltrim($path, '/');
     }
 }

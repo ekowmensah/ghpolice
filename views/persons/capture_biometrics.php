@@ -302,7 +302,7 @@ foreach ($leftFingers as $finger) {
     
     if ($captured && $capturedImage) {
         // Show captured fingerprint image - construct proper URL
-        $imageUrl = url('/') . ltrim($capturedImage, '/');
+        $imageUrl = rtrim(url('/'), '/') . '/' . ltrim($capturedImage, '/');
         $content .= '<div class="finger-card ' . $capturedClass . '" onclick="captureFingerprint(\'' . $finger['name'] . '\')">
                         <img src="' . $imageUrl . '" class="captured-fingerprint-img" alt="' . $finger['name'] . '">
                         <div class="finger-name">' . $finger['short'] . '</div>
@@ -353,7 +353,7 @@ foreach ($rightFingers as $finger) {
     
     if ($captured && $capturedImage) {
         // Show captured fingerprint image - construct proper URL
-        $imageUrl = url('/') . ltrim($capturedImage, '/');
+        $imageUrl = rtrim(url('/'), '/') . '/' . ltrim($capturedImage, '/');
         $content .= '<div class="finger-card ' . $capturedClass . '" onclick="captureFingerprint(\'' . $finger['name'] . '\')">
                         <img src="' . $imageUrl . '" class="captured-fingerprint-img" alt="' . $finger['name'] . '">
                         <div class="finger-name">' . $finger['short'] . '</div>
@@ -1657,9 +1657,9 @@ function exportFingerprintSheet() {
                             downloadCanvas();
                         }
                     };
-                    // Construct correct image path
-                    const baseUrl = "' . url('/') . '";
-                    img.src = baseUrl + fp.file_path;
+                    // Construct fingerprint image URL across root/subfolder/public deployments
+                    const baseUrl = "' . rtrim(url('/'), '/') . '";
+                    img.src = baseUrl + "/" + fp.file_path.replace(/^\/+/, "");
                 } else {
                     // Draw empty box
                     ctx.strokeStyle = "#cccccc";

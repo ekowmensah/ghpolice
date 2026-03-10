@@ -1614,11 +1614,9 @@ function exportFingerprintSheet() {
                             downloadCanvas();
                         }
                     };
-                    // Construct correct image path
-                    const baseUrl = "' . url('/') . '";
-                    // Remove /public from the URL if present
-                    const cleanBaseUrl = baseUrl.replace("/public", "");
-                    img.src = cleanBaseUrl + fp.file_path;
+                    // Construct fingerprint image URL across root/subfolder/public deployments
+                    const baseUrl = "' . rtrim(url('/'), '/') . '";
+                    img.src = baseUrl + "/" + fp.file_path.replace(/^\/+/, "");
                 } else {
                     // Draw empty box
                     ctx.strokeStyle = "#cccccc";
