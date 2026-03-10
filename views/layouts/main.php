@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="<?= url('/static/css/custom.css') ?>">
     <style>
         :root {
-            --gp-navy: #fff;
+            --gp-navy: #112c4d;
             --gp-navy-2: #1a406d;
             --gp-gold: #c7a13f;
             --gp-red: #d94a3a;
