@@ -42,11 +42,17 @@ class OfficerPostingController extends BaseController
                     CONCAT_WS(' ', o.first_name, o.middle_name, o.last_name) as officer_name,
                     pr.rank_name,
                     o.service_number,
-                    s.station_name
+                    s.station_name,
+                    d.district_name,
+                    dv.division_name,
+                    r.region_name
                 FROM officer_postings op
                 JOIN officers o ON op.officer_id = o.id
                 JOIN police_ranks pr ON o.rank_id = pr.id
                 LEFT JOIN stations s ON op.station_id = s.id
+                LEFT JOIN districts d ON op.district_id = d.id
+                LEFT JOIN divisions dv ON op.division_id = dv.id
+                LEFT JOIN regions r ON op.region_id = r.id
                 WHERE op.is_current = 1
                 ORDER BY o.first_name
             ");

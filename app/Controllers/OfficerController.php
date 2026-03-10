@@ -139,6 +139,8 @@ class OfficerController extends BaseController
             'performance' => $profile['performance_metrics'] ?? [],
             'training' => $profile['training_records'] ?? [],
             'leave' => $profile['leave_records'] ?? [],
+            'commendations' => $profile['commendation_records'] ?? [],
+            'disciplinary' => $profile['disciplinary_records'] ?? [],
             'workload' => $workload
         ]);
     }

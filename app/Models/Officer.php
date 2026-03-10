@@ -110,15 +110,11 @@ class Officer extends BaseModel
     public function getPostingHistory(int $officer_id): array
     {
         $stmt = $this->db->prepare("
-            SELECT op.*, 
-                   s.station_name, s.station_code,
-                   d.district_name,
-                   div.division_name,
-                   r.region_name
+            SELECT op.*, s.station_name, s.station_code, d.district_name, divisions.division_name, r.region_name
             FROM officer_postings op
             LEFT JOIN stations s ON op.station_id = s.id
             LEFT JOIN districts d ON op.district_id = d.id
-            LEFT JOIN divisions div ON op.division_id = div.id
+            LEFT JOIN divisions divisions ON op.division_id = divisions.id
             LEFT JOIN regions r ON op.region_id = r.id
             WHERE op.officer_id = ?
             ORDER BY op.start_date DESC
@@ -154,15 +150,11 @@ class Officer extends BaseModel
     public function getCurrentPosting(int $officer_id): ?array
     {
         $stmt = $this->db->prepare("
-            SELECT op.*, 
-                   s.station_name, s.station_code,
-                   d.district_name,
-                   div.division_name,
-                   r.region_name
+            SELECT op.*, s.station_name, s.station_code, d.district_name, divisions.division_name, r.region_name
             FROM officer_postings op
             LEFT JOIN stations s ON op.station_id = s.id
             LEFT JOIN districts d ON op.district_id = d.id
-            LEFT JOIN divisions div ON op.division_id = div.id
+            LEFT JOIN divisions divisions ON op.division_id = divisions.id
             LEFT JOIN regions r ON op.region_id = r.id
             WHERE op.officer_id = ? AND op.is_current = 1
             LIMIT 1
@@ -290,8 +282,7 @@ class Officer extends BaseModel
         
         // Training completed
         $stmt = $this->db->prepare("
-            SELECT COUNT(*) as total,
-                   SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed
+            SELECT COUNT(*) as total
             FROM officer_training
             WHERE officer_id = ?
         ");
@@ -310,7 +301,7 @@ class Officer extends BaseModel
         // Disciplinary actions
         $stmt = $this->db->prepare("
             SELECT COUNT(*) as total
-            FROM officer_disciplinary
+            FROM officer_disciplinary_records
             WHERE officer_id = ?
         ");
         $stmt->execute([$officer_id]);
@@ -327,7 +318,7 @@ class Officer extends BaseModel
         $stmt = $this->db->prepare("
             SELECT * FROM officer_training
             WHERE officer_id = ?
-            ORDER BY training_start_date DESC
+            ORDER BY start_date DESC
         ");
         $stmt->execute([$officer_id]);
         return $stmt->fetchAll();
@@ -341,7 +332,7 @@ class Officer extends BaseModel
         $stmt = $this->db->prepare("
             SELECT ol.*,
                    CONCAT_WS(' ', u.first_name, u.last_name) as approved_by_name
-            FROM officer_leave ol
+            FROM officer_leave_records ol
             LEFT JOIN users u ON ol.approved_by = u.id
             WHERE ol.officer_id = ?
             ORDER BY ol.start_date DESC
@@ -370,7 +361,43 @@ class Officer extends BaseModel
         $officer['performance_metrics'] = $this->getPerformanceMetrics($officer_id);
         $officer['training_records'] = $this->getTrainingRecords($officer_id);
         $officer['leave_records'] = $this->getLeaveRecords($officer_id);
+        $officer['commendation_records'] = $this->getCommendationRecords($officer_id);
+        $officer['disciplinary_records'] = $this->getDisciplinaryRecords($officer_id);
         
         return $officer;
+    }
+    
+    /**
+     * Get commendation records for this officer
+     */
+    public function getCommendationRecords(int $officer_id): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT oc.*, 
+                   oc.awarded_by as awarded_by_name,
+                   oc.awarded_by as approved_by_name
+            FROM officer_commendations oc
+            WHERE oc.officer_id = ?
+            ORDER BY oc.award_date DESC
+        ");
+        $stmt->execute([$officer_id]);
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Get disciplinary records for this officer
+     */
+    public function getDisciplinaryRecords(int $officer_id): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT odr.*, 
+                   CONCAT_WS(' ', u.first_name, u.last_name) as recorded_by_name
+            FROM officer_disciplinary_records odr
+            LEFT JOIN users u ON odr.recorded_by = u.id
+            WHERE odr.officer_id = ?
+            ORDER BY odr.incident_date DESC
+        ");
+        $stmt->execute([$officer_id]);
+        return $stmt->fetchAll();
     }
 }

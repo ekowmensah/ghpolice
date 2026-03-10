@@ -684,3 +684,76 @@
 [2026-03-10 00:23:53] [error] Exception: Database connection failed. Please check your configuration. in C:\xampp\htdocs\ghpims\app\Config\Database.php on line 33
 [2026-03-10 00:24:22] [info] Login attempt failed: User not found - ekowme@gmail.com
 [2026-03-10 00:24:35] [info] User logged in successfully: admin
+[2026-03-10 01:07:00] [info] User logged in successfully: admin
+[2026-03-10 01:07:26] [error] Failed to log sensitive data access: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'access_timestamp' in 'field list'
+[2026-03-10 01:07:26] [info] Background check performed on person ID 1 by user 1
+[2026-03-10 01:07:33] [info] Crime check performed:   - NOT FOUND
+[2026-03-10 01:07:45] [info] Crime check performed: 0545644749 - FOUND
+[2026-03-10 01:07:45] [error] Failed to log sensitive data access: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'access_timestamp' in 'field list'
+[2026-03-10 01:07:45] [info] Background check performed via identifier search by user 1
+[2026-03-10 01:24:15] [info] User logged in successfully: admin
+[2026-03-10 02:00:46] [error] Routing error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9
+[2026-03-10 02:00:46] [error] Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9 in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 112
+[2026-03-10 02:00:55] [error] Routing error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9
+[2026-03-10 02:00:55] [error] Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9 in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 112
+[2026-03-10 02:04:01] [error] Routing error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 5
+[2026-03-10 02:04:01] [error] Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 5 in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 112
+[2026-03-10 02:04:02] [error] Routing error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 5
+[2026-03-10 02:04:02] [error] Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 5 in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 112
+[2026-03-10 02:04:22] [error] Routing error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9
+[2026-03-10 02:04:22] [error] Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'div ON op.division_id = div.id
+            LEFT JOIN regions r ON op.region_...' at line 9 in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 152
+[2026-03-10 02:04:51] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
+[2026-03-10 02:04:51] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 284
+[2026-03-10 02:04:52] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
+[2026-03-10 02:04:52] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 284
+[2026-03-10 02:07:45] [error] Routing error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary' doesn't exist
+[2026-03-10 02:07:45] [error] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary' doesn't exist in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 302
+[2026-03-10 02:08:09] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_status' in 'field list'
+[2026-03-10 02:08:09] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_status' in 'field list' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 284
+[2026-03-10 02:08:40] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_status' in 'field list'
+[2026-03-10 02:08:40] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_status' in 'field list' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 284
+[2026-03-10 02:09:10] [error] Routing error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary_actions' doesn't exist
+[2026-03-10 02:09:10] [error] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary_actions' doesn't exist in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 302
+[2026-03-10 02:09:12] [error] Routing error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary_actions' doesn't exist
+[2026-03-10 02:09:12] [error] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_disciplinary_actions' doesn't exist in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 302
+[2026-03-10 02:10:46] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_start_date' in 'order clause'
+[2026-03-10 02:10:46] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_start_date' in 'order clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 318
+[2026-03-10 02:11:14] [error] Routing error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_leave' doesn't exist
+[2026-03-10 02:11:14] [error] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_leave' doesn't exist in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 332
+[2026-03-10 02:12:21] [error] Routing error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_leave' doesn't exist
+[2026-03-10 02:12:21] [error] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ghpims.officer_leave' doesn't exist in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 332
+[2026-03-10 02:14:04] [error] Routing error: View not found: officers/biometrics/index
+[2026-03-10 02:14:04] [error] Exception: View not found: officers/biometrics/index in C:\xampp\htdocs\ghpims\app\Helpers\functions.php on line 41
+[2026-03-10 02:23:15] [error] Exception: syntax error, unexpected single-quoted string ";" in C:\xampp\htdocs\ghpims\views\officers\leave\index.php on line 100
+[2026-03-10 02:24:21] [error] Exception: syntax error, unexpected identifier "last_name", expecting ")" in C:\xampp\htdocs\ghpims\views\officers\leave\index.php on line 190
+[2026-03-10 02:24:27] [error] Exception: syntax error, unexpected identifier "last_name", expecting ")" in C:\xampp\htdocs\ghpims\views\officers\leave\index.php on line 190
+[2026-03-10 02:24:32] [error] Exception: syntax error, unexpected single-quoted string ";" in C:\xampp\htdocs\ghpims\views\officers\commendations\index.php on line 156
+[2026-03-10 02:24:59] [error] Exception: syntax error, unexpected single-quoted string ";" in C:\xampp\htdocs\ghpims\views\officers\commendations\index.php on line 156
+[2026-03-10 02:26:51] [error] Exception: syntax error, unexpected single-quoted string ";" in C:\xampp\htdocs\ghpims\views\officers\commendations\create.php on line 247
+[2026-03-10 02:38:41] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause'
+[2026-03-10 02:38:41] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 375
+[2026-03-10 02:38:58] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause'
+[2026-03-10 02:38:58] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 375
+[2026-03-10 02:39:27] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause'
+[2026-03-10 02:39:27] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 375
+[2026-03-10 02:40:56] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause'
+[2026-03-10 02:40:56] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 375
+[2026-03-10 02:42:43] [error] Routing error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause'
+[2026-03-10 02:42:43] [error] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'oc.approved_by' in 'on clause' in C:\xampp\htdocs\ghpims\app\Models\Officer.php on line 375
+[2026-03-10 02:44:48] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662
+[2026-03-10 02:44:50] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662
+[2026-03-10 02:45:51] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662
+[2026-03-10 02:46:10] [error] Exception: syntax error, unexpected single-quoted string "" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 665
+[2026-03-10 02:47:17] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662
+[2026-03-10 02:47:37] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662
+[2026-03-10 02:47:39] [error] Exception: syntax error, unexpected token "class" in C:\xampp\htdocs\ghpims\views\officers\profile.php on line 662

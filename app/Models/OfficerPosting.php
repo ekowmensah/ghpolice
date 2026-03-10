@@ -60,12 +60,31 @@ class OfficerPosting extends BaseModel
                 [date('Y-m-d'), $officerId]
             );
             
+            // Get station details to populate district, division, and region
+            $stationId = $postingData['station_id'] ?? null;
+            $districtId = $postingData['district_id'] ?? null;
+            $divisionId = $postingData['division_id'] ?? null;
+            $regionId = $postingData['region_id'] ?? null;
+            
+            if ($stationId) {
+                $station = $this->query(
+                    "SELECT district_id, division_id, region_id FROM stations WHERE id = ?",
+                    [$stationId]
+                );
+                
+                if (!empty($station)) {
+                    $districtId = $station[0]['district_id'];
+                    $divisionId = $station[0]['division_id'];
+                    $regionId = $station[0]['region_id'];
+                }
+            }
+            
             $this->create([
                 'officer_id' => $officerId,
-                'station_id' => $postingData['station_id'] ?? null,
-                'district_id' => $postingData['district_id'] ?? null,
-                'division_id' => $postingData['division_id'] ?? null,
-                'region_id' => $postingData['region_id'] ?? null,
+                'station_id' => $stationId,
+                'district_id' => $districtId,
+                'division_id' => $divisionId,
+                'region_id' => $regionId,
                 'posting_type' => $postingData['posting_type'],
                 'position_title' => $postingData['position_title'] ?? null,
                 'start_date' => $postingData['start_date'],
@@ -78,10 +97,10 @@ class OfficerPosting extends BaseModel
             $this->execute(
                 "UPDATE officers SET current_station_id = ?, current_district_id = ?, current_division_id = ?, current_region_id = ? WHERE id = ?",
                 [
-                    $postingData['station_id'] ?? null,
-                    $postingData['district_id'] ?? null,
-                    $postingData['division_id'] ?? null,
-                    $postingData['region_id'] ?? null,
+                    $stationId,
+                    $districtId,
+                    $divisionId,
+                    $regionId,
                     $officerId
                 ]
             );
@@ -92,5 +111,61 @@ class OfficerPosting extends BaseModel
             $this->db->rollBack();
             return false;
         }
+    }
+    
+    /**
+     * Create initial posting for an officer
+     */
+    public function createInitialPosting(int $officerId, array $postingData): bool
+    {
+        // Get station details to populate district, division, and region
+        $stationId = $postingData['station_id'] ?? null;
+        $districtId = $postingData['district_id'] ?? null;
+        $divisionId = $postingData['division_id'] ?? null;
+        $regionId = $postingData['region_id'] ?? null;
+        
+        if ($stationId) {
+            $station = $this->query(
+                "SELECT district_id, division_id, region_id FROM stations WHERE id = ?",
+                [$stationId]
+            );
+            
+            if (!empty($station)) {
+                $districtId = $station[0]['district_id'];
+                $divisionId = $station[0]['division_id'];
+                $regionId = $station[0]['region_id'];
+            }
+        }
+        
+        $result = $this->create([
+            'officer_id' => $officerId,
+            'station_id' => $stationId,
+            'district_id' => $districtId,
+            'division_id' => $divisionId,
+            'region_id' => $regionId,
+            'posting_type' => $postingData['posting_type'] ?? 'Initial Posting',
+            'position_title' => $postingData['position_title'] ?? null,
+            'start_date' => $postingData['start_date'] ?? date('Y-m-d'),
+            'posting_order_number' => $postingData['posting_order_number'] ?? null,
+            'is_current' => 1,
+            'remarks' => $postingData['remarks'] ?? null,
+            'posted_by' => $postingData['posted_by'] ?? null
+        ]);
+        
+        if ($result) {
+            // Update officer's current location
+            $this->execute(
+                "UPDATE officers SET current_station_id = ?, current_district_id = ?, current_division_id = ?, current_region_id = ? WHERE id = ?",
+                [
+                    $stationId,
+                    $districtId,
+                    $divisionId,
+                    $regionId,
+                    $officerId
+                ]
+            );
+        }
+        
+        return $result;
     }
 }
