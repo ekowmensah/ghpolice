@@ -66,11 +66,23 @@ require_once __DIR__ . '/../routes/web.php';
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-// Remove base path if application is in subdirectory
-$basePath = '/ghpims/public';
-if (strpos($uri, $basePath) === 0) {
-    $uri = substr($uri, strlen($basePath));
+// Normalize URI across environments (local subfolder, cPanel public/, or domain root)
+$requestPath = parse_url($uri, PHP_URL_PATH) ?? '/';
+$scriptDir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+$candidateBasePaths = array_unique(array_filter([
+    $scriptDir !== '' ? $scriptDir : null,
+    $scriptDir !== '' && str_ends_with($scriptDir, '/public') ? substr($scriptDir, 0, -7) : null,
+    '/public'
+]));
+
+foreach ($candidateBasePaths as $basePath) {
+    if ($basePath !== '' && strpos($requestPath, $basePath) === 0) {
+        $requestPath = substr($requestPath, strlen($basePath));
+        break;
+    }
 }
+
+$uri = $requestPath === '' ? '/' : $requestPath;
 
 // Skip routing for static assets
 $assetExtensions = ['css', 'js', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'woff', 'woff2', 'ttf', 'eot', 'ico', 'map'];
