@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="' . url('/dashboard') . '">Home</a></li>
                         <li class="breadcrumb-item active">Custody Records</li>
                     </ol>
                 </div>
@@ -75,7 +75,7 @@
                                                 <strong><?= htmlspecialchars($record['suspect_name']) ?></strong>
                                             </td>
                                             <td>
-                                                <a href="/cases/<?= $record['case_id'] ?>">
+                                                <a href="' . url('/cases/view/' . $record['case_id']) . '">
                                                     <?= htmlspecialchars($record['case_number']) ?>
                                                 </a>
                                             </td>
@@ -104,7 +104,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="/custody/<?= $record['id'] ?>" class="btn btn-sm btn-info" title="View">
+                                                <a href="' . url('/custody/view/' . $record['id']) . '" class="btn btn-sm btn-info" title="View">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <?php if (($record['custody_status'] ?? '') == 'In Custody'): ?>
