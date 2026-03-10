@@ -1,4 +1,6 @@
 <?php
+$title = 'Bail Records';
+
 $content = '
 <div class="row">
     <div class="col-md-12">
@@ -21,9 +23,10 @@ $content = '
                     </thead>
                     <tbody>';
 
-foreach ($bail_records as $bail) {
-    $statusClass = $bail['bail_status'] === 'Granted' ? 'success' : ($bail['bail_status'] === 'Denied' ? 'danger' : 'warning');
-    $content .= '
+if (!empty($bails)) {
+    foreach ($bails as $bail) {
+        $statusClass = $bail['bail_status'] === 'Granted' ? 'success' : ($bail['bail_status'] === 'Denied' ? 'danger' : 'warning');
+        $content .= '
                         <tr>
                             <td>' . date('d M Y', strtotime($bail['bail_date'])) . '</td>
                             <td>
@@ -43,6 +46,14 @@ foreach ($bail_records as $bail) {
                                 <a href="' . url('/bail/view/' . $bail['id']) . '" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i> View
                                 </a>
+                            </td>
+                        </tr>';
+    }
+} else {
+    $content .= '
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">
+                                No bail records found
                             </td>
                         </tr>';
 }

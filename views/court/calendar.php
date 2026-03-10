@@ -25,10 +25,10 @@
                         <?= date('F Y', strtotime($selected_month . '-01')) ?>
                     </h3>
                     <div class="card-tools">
-                        <a href="/court-calendar/upcoming" class="btn btn-info btn-sm">
+                        <a href="/../court-calendar/upcoming" class="btn btn-info btn-sm">
                             <i class="fas fa-calendar-alt"></i> Upcoming Hearings
                         </a>
-                        <a href="/court-calendar/daily" class="btn btn-primary btn-sm">
+                        <a href="../../court-calendar/daily" class="btn btn-primary btn-sm">
                             <i class="fas fa-calendar-day"></i> Daily Schedule
                         </a>
                     </div>
