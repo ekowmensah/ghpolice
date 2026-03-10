@@ -89,6 +89,7 @@ $router->post('/investigations/tasks/{id}/status', 'InvestigationController@upda
 // Officer Management
 $router->get('/officers', 'OfficerController@index', [AuthMiddleware::class]);
 $router->get('/officers/create', 'OfficerController@create', [AuthMiddleware::class]);
+$router->get('/officers/search/{query}', 'OfficerController@search', [AuthMiddleware::class]);
 
 // Officer-specific module routes (must come before /officers/{id})
 $router->get('/officers/biometrics', 'OfficerBiometricController@index', [AuthMiddleware::class]);
@@ -239,6 +240,12 @@ $router->get('/court-calendar/statistics', 'CourtCalendarController@statistics',
 // Warrant Management
 $router->get('/warrants', 'WarrantController@index', [AuthMiddleware::class]);
 $router->get('/warrants/active', 'WarrantController@active', [AuthMiddleware::class]);
+$router->get('/warrants/create', 'WarrantController@create', [AuthMiddleware::class]);
+$router->get('/warrants/cases/{id}/suspects', 'WarrantController@getCaseSuspects', [AuthMiddleware::class]);
+$router->post('/warrants/store', 'WarrantController@store', [AuthMiddleware::class]);
+$router->get('/warrants/view/{id}', 'WarrantController@show', [AuthMiddleware::class]);
+$router->get('/warrants/{id}/edit', 'WarrantController@edit', [AuthMiddleware::class]);
+$router->post('/warrants/{id}/update', 'WarrantController@update', [AuthMiddleware::class]);
 $router->get('/warrants/{id}', 'WarrantController@show', [AuthMiddleware::class]);
 $router->post('/warrants/{id}/execute', 'WarrantController@execute', [AuthMiddleware::class]);
 $router->post('/warrants/{id}/cancel', 'WarrantController@cancel', [AuthMiddleware::class]);

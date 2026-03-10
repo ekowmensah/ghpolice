@@ -305,15 +305,15 @@ $content = '
         
         <div class="gp-warrants-stats">
             <div class="gp-stat-item">
-                <span class="gp-stat-number">' . (!empty($warrants) ? 0 : count($warrants)) . '</span>
+                <span class="gp-stat-number">' . (empty($warrants) ? 0 : count($warrants)) . '</span>
                 <span class="gp-stat-label">Total Warrants</span>
             </div>
             <div class="gp-stat-item">
-                <span class="gp-stat-number">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Active')) ) . '</span>
+                <span class="gp-stat-number">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Active')) ) . '</span>
                 <span class="gp-stat-label">Active</span>
             </div>
             <div class="gp-stat-item">
-                <span class="gp-stat-number">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Executed')) ) . '</span>
+                <span class="gp-stat-number">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Executed')) ) . '</span>
                 <span class="gp-stat-label">Executed</span>
             </div>
         </div>
@@ -343,7 +343,7 @@ $content = '
                         <i class="fas fa-gavel fa-2x"></i>
                         <div class="mt-2">
                             <strong>Arrest Warrants</strong>
-                            <div class="text-muted">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Arrest Warrant'))) . '</div>
+                            <div class="text-muted">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Arrest'))) . '</div>
                         </div>
                     </div>
                 </div>
@@ -352,7 +352,7 @@ $content = '
                         <i class="fas fa-search fa-2x"></i>
                         <div class="mt-2">
                             <strong>Search Warrants</strong>
-                            <div class="text-muted">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Search Warrant'))) . '</div>
+                            <div class="text-muted">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Search'))) . '</div>
                         </div>
                     </div>
                 </div>
@@ -361,7 +361,7 @@ $content = '
                         <i class="fas fa-balance-scale fa-2x"></i>
                         <div class="mt-2">
                             <strong>Bench Warrants</strong>
-                            <div class="text-muted">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Bench Warrant'))) . '</div>
+                            <div class="text-muted">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['warrant_type'] === 'Bench'))) . '</div>
                         </div>
                     </div>
                 </div>
@@ -370,7 +370,7 @@ $content = '
                         <i class="fas fa-clock fa-2x"></i>
                         <div class="mt-2">
                             <strong>Pending</strong>
-                            <div class="text-muted">' . (!empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Active' && $w['warrant_type'] === 'Arrest Warrant'))) . '</div>
+                            <div class="text-muted">' . (empty($warrants) ? 0 : count(array_filter($warrants, fn($w) => $w['status'] === 'Active' && $w['warrant_type'] === 'Arrest'))) . '</div>
                         </div>
                     </div>
                 </div>
@@ -450,6 +450,7 @@ if (empty($warrants)) {
                                     <th>Case Number</th>
                                     <th>Suspect</th>
                                     <th>Issue Date</th>
+                                    <th>Time</th>
                                     <th>Issued By</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -473,6 +474,7 @@ if (empty($warrants)) {
                                         ($warrant['ghana_card_number'] ? '<br><small class="text-muted">' . htmlspecialchars($warrant['ghana_card_number']) . '</small>' : '') . '
                                     </td>
                                     <td>' . date('Y-m-d', strtotime($warrant['issue_date'])) . '</td>
+                                    <td>' . date('H:i', strtotime($warrant['issue_date'])) . '</td>
                                     <td>' . htmlspecialchars($warrant['issued_by']) . '</td>
                                     <td>
                                         <span class="gp-badge gp-badge-' . 
@@ -510,10 +512,12 @@ if (empty($warrants)) {
 
 $content .= '
         </div>
-    <?php } ?>
+    </div>
+</div>';
 
-    <?php $breadcrumbs = [
-        ['title' => 'Warrants']
-    ]; ?>
+$breadcrumbs = [
+    ['title' => 'Warrants']
+];
 
-    <?php include __DIR__ . '/../layouts/main.php'; ?>
+include __DIR__ . '/../layouts/main.php';
+?>

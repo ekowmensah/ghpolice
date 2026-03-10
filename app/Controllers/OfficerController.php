@@ -273,4 +273,16 @@ class OfficerController extends BaseController
         echo json_encode($officers);
         exit;
     }
+    
+    /**
+     * Search officers by name or service number
+     */
+    public function search(string $query): void
+    {
+        $officers = $this->officerModel->searchOfficers($query);
+        
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true, 'officers' => $officers]);
+        exit;
+    }
 }

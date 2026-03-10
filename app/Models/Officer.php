@@ -400,4 +400,33 @@ class Officer extends BaseModel
         $stmt->execute([$officer_id]);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Search officers by name or service number
+     */
+    public function searchOfficers(string $query): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT 
+                o.id,
+                CONCAT_WS(' ', o.first_name, o.middle_name, o.last_name) as name,
+                o.service_number,
+                pr.rank_name as rank
+            FROM officers o
+            LEFT JOIN police_ranks pr ON o.rank_id = pr.id
+            WHERE o.employment_status = 'Active'
+            AND (
+                o.service_number LIKE ? 
+                OR CONCAT_WS(' ', o.first_name, o.middle_name, o.last_name) LIKE ?
+                OR o.first_name LIKE ?
+                OR o.last_name LIKE ?
+            )
+            ORDER BY o.first_name
+            LIMIT 10
+        ");
+        
+        $searchTerm = "%{$query}%";
+        $stmt->execute([$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
+        return $stmt->fetchAll();
+    }
 }
