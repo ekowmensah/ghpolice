@@ -524,20 +524,39 @@
     }
 
     .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link {
-        color: rgba(255, 255, 255, 0.78);
+        color: rgba(255, 255, 255, 0.94);
         border-radius: 8px;
         margin: 2px 8px 2px 22px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .gp-sidebar .nav-sidebar .nav-link:hover {
+    .gp-sidebar .nav-sidebar > .nav-item > .nav-link:hover {
         background: rgba(255, 255, 255, 0.1);
         color: #fff;
     }
 
-    .gp-sidebar .nav-sidebar .nav-link.active {
-        background: linear-gradient(135deg, var(--gp-gold), #b68b2e);
-        color: #182133;
+    .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+    }
+
+    .gp-sidebar .nav-sidebar > .nav-item > .nav-link.active {
+        background: linear-gradient(135deg, #133a67, #1f4f85);
+        color: #fff;
         font-weight: 700;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link.active {
+        background: rgba(199, 161, 63, 0.2);
+        border: 1px solid rgba(199, 161, 63, 0.45);
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link.active i,
+    .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link.active p {
+        color: #fff !important;
     }
 
     .gp-sidebar .nav-sidebar .nav-header {
