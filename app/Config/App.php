@@ -103,6 +103,13 @@ class App
             return ($base !== '' ? $base : '') . '/';
         }
 
-        return ($base !== '' ? $base : '') . '/' . ltrim($path, '/');
+        $normalizedPath = '/' . ltrim($path, '/');
+
+        // Prevent duplicating base path for values like /ghpims/public/dashboard.
+        if ($basePath !== '' && strpos($normalizedPath, $basePath . '/') === 0) {
+            return ($origin !== '' ? $origin : '') . $normalizedPath;
+        }
+
+        return ($base !== '' ? $base : '') . $normalizedPath;
     }
 }

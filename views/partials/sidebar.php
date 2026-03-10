@@ -1,9 +1,9 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 gp-sidebar">
     <!-- Brand Logo -->
     <a href="<?= url('/dashboard') ?>" class="brand-link">
-        <img src="<?= url('/AdminLTE/dist/img/AdminLTELogo.png') ?>" alt="GHPIMS Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">GHPIMS</span>
+        <img src="<?= url('/static/img/ghana-police-logo.jpg') ?>" alt="GHPIMS Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">GHPIMS Command</span>
     </a>
 
     <!-- Sidebar -->
@@ -15,6 +15,7 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= sanitize(auth()['username'] ?? 'User') ?></a>
+                <small><?= sanitize(auth()['role_name'] ?? 'Officer') ?></small>
             </div>
         </div>
 
@@ -478,3 +479,114 @@
         </nav>
     </div>
 </aside>
+
+<style>
+    .gp-sidebar {
+        background: linear-gradient(180deg, #0f2746 0%, #15355e 100%);
+    }
+
+    .gp-sidebar .brand-link {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.12);
+    }
+
+    .gp-sidebar .brand-image {
+        opacity: 1 !important;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        padding: 2px;
+        background: #fff;
+    }
+
+    .gp-sidebar .brand-text {
+        color: #fff;
+        letter-spacing: 0.35px;
+    }
+
+    .gp-sidebar .user-panel {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .gp-sidebar .user-panel .info a {
+        color: #fff !important;
+        font-weight: 600;
+    }
+
+    .gp-sidebar .user-panel .info small {
+        color: rgba(255, 255, 255, 0.72);
+        display: block;
+        margin-top: 2px;
+    }
+
+    .gp-sidebar .nav-sidebar > .nav-item > .nav-link {
+        color: rgba(255, 255, 255, 0.86);
+        border-radius: 8px;
+        margin: 2px 8px;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-treeview > .nav-item > .nav-link {
+        color: rgba(255, 255, 255, 0.78);
+        border-radius: 8px;
+        margin: 2px 8px 2px 22px;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-link.active {
+        background: linear-gradient(135deg, var(--gp-gold), #b68b2e);
+        color: #182133;
+        font-weight: 700;
+    }
+
+    .gp-sidebar .nav-sidebar .nav-header {
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const normalizePath = (path) => {
+        if (!path) return "/";
+        const cleaned = path.replace(/\/+$/, "");
+        return cleaned === "" ? "/" : cleaned;
+    };
+
+    const currentPath = normalizePath(window.location.pathname);
+    const submenuLinks = document.querySelectorAll(".gp-sidebar .nav-treeview .nav-link[href]");
+
+    submenuLinks.forEach((link) => {
+        let linkPath = "/";
+
+        try {
+            linkPath = normalizePath(new URL(link.href, window.location.origin).pathname);
+        } catch (e) {
+            return;
+        }
+
+        const isExact = currentPath === linkPath;
+        const isChild = linkPath !== "/" && currentPath.startsWith(linkPath + "/");
+
+        if (isExact || isChild) {
+            link.classList.add("active");
+
+            const parentTreeItem = link.closest(".nav-item");
+            const rootTreeItem = link.closest(".nav-treeview")?.closest(".nav-item");
+            const rootToggle = rootTreeItem?.querySelector(":scope > .nav-link");
+
+            if (parentTreeItem) {
+                parentTreeItem.classList.add("menu-open");
+            }
+
+            if (rootTreeItem) {
+                rootTreeItem.classList.add("menu-open");
+            }
+
+            if (rootToggle) {
+                rootToggle.classList.add("active");
+            }
+        }
+    });
+});
+</script>
