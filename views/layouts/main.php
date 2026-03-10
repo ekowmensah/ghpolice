@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../app/Helpers/functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,6 +107,9 @@
                         <?php unset($_SESSION['flash'][$type]); ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
+
+                <!-- CSRF Token for AJAX calls -->
+                <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
 
                 <?= $content ?? '' ?>
             </div>

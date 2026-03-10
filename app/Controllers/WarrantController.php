@@ -514,8 +514,8 @@ class WarrantController extends BaseController
         $stmt = $this->db->prepare("
             INSERT INTO evidence (
                 case_id, evidence_type, evidence_number, description, 
-                collection_date, collection_location, uploaded_by, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, 'In Custody')
+                collection_date, collection_location, uploaded_by
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
         
         return $stmt->execute([

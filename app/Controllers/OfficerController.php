@@ -53,11 +53,19 @@ class OfficerController extends BaseController
     {
         $ranks = $this->officerService->getAllRanks();
         $stations = $this->stationModel->all();
+        $districts = $this->stationModel->getAllDistricts();
+        $divisions = $this->stationModel->getAllDivisions();
+        $regions = $this->stationModel->getAllRegions();
+        $units = $this->stationModel->getAllUnits();
         
         return $this->view('officers/create', [
             'title' => 'Register Officer',
             'ranks' => $ranks,
-            'stations' => $stations
+            'stations' => $stations,
+            'districts' => $districts,
+            'divisions' => $divisions,
+            'regions' => $regions,
+            'units' => $units
         ]);
     }
     
@@ -73,18 +81,29 @@ class OfficerController extends BaseController
         
         $data = [
             'service_number' => $_POST['service_number'] ?? '',
+            'badge_number' => $_POST['badge_number'] ?? null,
             'first_name' => $_POST['first_name'] ?? '',
             'middle_name' => $_POST['middle_name'] ?? null,
             'last_name' => $_POST['last_name'] ?? '',
             'rank_id' => $_POST['rank_id'] ?? null,
             'date_of_birth' => $_POST['date_of_birth'] ?? null,
             'gender' => $_POST['gender'] ?? null,
+            'ghana_card_number' => $_POST['ghana_card_number'] ?? null,
+            'passport_number' => $_POST['passport_number'] ?? null,
             'phone_number' => $_POST['phone_number'] ?? null,
             'email' => $_POST['email'] ?? null,
+            'alternative_contact' => $_POST['alternative_contact'] ?? null,
+            'drivers_license' => $_POST['drivers_license'] ?? null,
             'residential_address' => $_POST['residential_address'] ?? null,
             'date_of_enlistment' => $_POST['date_of_enlistment'] ?? null,
             'current_station_id' => $_POST['current_station_id'] ?? null,
-            'employment_status' => 'Active'
+            'current_district_id' => $_POST['current_district_id'] ?? null,
+            'current_division_id' => $_POST['current_division_id'] ?? null,
+            'current_region_id' => $_POST['current_region_id'] ?? null,
+            'current_unit_id' => $_POST['current_unit_id'] ?? null,
+            'employment_status' => $_POST['employment_status'] ?? 'Active',
+            'specialization' => $_POST['specialization'] ?? null,
+            'next_of_kin' => $_POST['next_of_kin'] ?? null
         ];
         
         $errors = $this->validate($data, [

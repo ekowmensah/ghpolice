@@ -429,4 +429,48 @@ class Officer extends BaseModel
         $stmt->execute([$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Create new officer record
+     */
+    public function create(array $data): int
+    {
+        $stmt = $this->db->prepare("
+            INSERT INTO officers (
+                service_number, badge_number, first_name, middle_name, last_name, rank_id,
+                date_of_birth, gender, ghana_card_number, passport_number, phone_number,
+                email, alternative_contact, drivers_license, residential_address, date_of_enlistment,
+                current_station_id, current_district_id, current_division_id, current_region_id,
+                current_unit_id, employment_status, specialization, next_of_kin
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        
+        $stmt->execute([
+            $data['service_number'],
+            $data['badge_number'],
+            $data['first_name'],
+            $data['middle_name'],
+            $data['rank_id'],
+            $data['date_of_birth'],
+            $data['gender'],
+            $data['ghana_card_number'],
+            $data['passport_number'],
+            $data['phone_number'],
+            $data['email'],
+            $data['alternative_contact'],
+            $data['drivers_license'],
+            $data['residential_address'],
+            $data['date_of_enlistment'],
+            $data['current_station_id'],
+            $data['current_district_id'],
+            $data['current_division_id'],
+            $data['current_region_id'],
+            $data['current_unit_id'],
+            $data['employment_status'],
+            $data['specialization'],
+            $data['next_of_kin']
+        ]);
+        
+        return (int)$this->db->lastInsertId();
+    }
 }

@@ -72,4 +72,56 @@ class Station extends BaseModel
         $stmt->execute([$stationId]);
         return (int)$stmt->fetch()['total'];
     }
+    
+    /**
+     * Get all districts
+     */
+    public function getAllDistricts(): array
+    {
+        $stmt = $this->db->query("
+            SELECT id, district_name 
+            FROM districts 
+            ORDER BY district_name
+        ");
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Get all divisions
+     */
+    public function getAllDivisions(): array
+    {
+        $stmt = $this->db->query("
+            SELECT id, division_name 
+            FROM divisions 
+            ORDER BY division_name
+        ");
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Get all regions
+     */
+    public function getAllRegions(): array
+    {
+        $stmt = $this->db->query("
+            SELECT id, region_name 
+            FROM regions 
+            ORDER BY region_name
+        ");
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Get all units
+     */
+    public function getAllUnits(): array
+    {
+        $stmt = $this->db->query("
+            SELECT id, unit_name 
+            FROM units 
+            ORDER BY unit_name
+        ");
+        return $stmt->fetchAll();
+    }
 }
