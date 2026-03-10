@@ -286,7 +286,22 @@ class WarrantController extends BaseController
                 $detailedNotes .= "\nExecution Details: " . $executionNotes;
             }
             
-            $stmt->execute([$id, $executingOfficerId ?? $_SESSION['user_id'] ?? 1, $executionDate, $executionLocation, $detailedNotes]);
+            // Use current user ID if executing officer ID is not a valid officer
+$executedById = $executingOfficerId ?? $_SESSION['user_id'] ?? 1;
+
+// Check if the executing officer ID exists in officers table
+if ($executingOfficerId) {
+    $officerCheck = $this->db->prepare("SELECT id FROM officers WHERE id = ? AND employment_status = 'Active'");
+    $officerCheck->execute([$executingOfficerId]);
+    $validOfficer = $officerCheck->fetch();
+    
+    if (!$validOfficer) {
+        // Use current user ID if officer ID is not valid
+        $executedById = $_SESSION['user_id'] ?? 1;
+    }
+}
+
+$stmt->execute([$id, $executedById, $executionDate, $executionLocation, $detailedNotes]);
             
             $this->db->commit();
             
